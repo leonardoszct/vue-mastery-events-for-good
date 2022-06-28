@@ -5,6 +5,8 @@ import EventDetails from '../views/event/Details.vue'
 import EventRegister from '../views/event/Register.vue'
 import EventEdit from '../views/event/Edit.vue'
 import About from '../views/AboutView.vue'
+import NotFound from '../views/errors/NotFound.vue'
+import NetworkError from '../views/errors/Network.vue'
 
 const routes = [
   {
@@ -46,6 +48,22 @@ const routes = [
     path: '/about',
     name: 'About',
     component: About,
+  },
+  {
+    path: '/:cathcAll(.*)',
+    name: 'NotFound',
+    component: NotFound,
+  },
+  {
+    path: '/404/:resource',
+    name: '404Resource',
+    component: NotFound,
+    props: true,
+  },
+  {
+    path: '/network-error',
+    name: 'NetworkError',
+    component: NetworkError,
   },
 ]
 

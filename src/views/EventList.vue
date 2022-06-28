@@ -59,7 +59,9 @@ export default {
           this.totalEvents = response.headers['x-total-count']
         })
         .catch(() => {
-          alert('Error getting event')
+          this.$router.push({
+            name: 'NetworkError',
+          })
         })
     })
   },
