@@ -1,4 +1,6 @@
-# real-world-vue
+# Vue 3 Events Project
+
+This is a tutorial project from Vue Mastery beginner path [real world vue 3](https://www.vuemastery.com/courses/real-world-vue3) course. 
 
 ## Project setup
 ```
