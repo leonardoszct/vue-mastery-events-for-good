@@ -12,33 +12,13 @@
 </template>
 
 <script>
-import EventService from '@/services/EventService'
-
 export default {
   name: 'EventLayout',
-  props: ['id'],
-  data() {
-    return {
-      event: null,
-    }
-  },
-  created() {
-    EventService.getEvent(this.id)
-      .then((response) => {
-        this.event = response.data
-      })
-      .catch((error) => {
-        if (error?.response?.status === 404) {
-          this.$router.push({
-            name: '404Resource',
-            params: { resource: 'event' },
-          })
-        } else {
-          this.$router.push({
-            name: 'NetworkError',
-          })
-        }
-      })
+  inject: ['GStore'],
+  computed: {
+    event() {
+      return this.GStore.event
+    },
   },
 }
 </script>

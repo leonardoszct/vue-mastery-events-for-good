@@ -32,7 +32,6 @@
 // @ is an alias to /src
 import EventCard from '@/components/EventCard.vue'
 import EventService from '@/services/EventService'
-import NProgress from 'nprogress'
 
 const PAGE_SIZE = 2
 
@@ -64,10 +63,9 @@ export default {
   },
   methods: {
     getEvents(routeTo, comp) {
-      NProgress.start()
       const page = parseInt(routeTo.query.page) || 1
 
-      EventService.getEvents(PAGE_SIZE, page)
+      return EventService.getEvents(PAGE_SIZE, page)
         .then((response) => {
           comp.events = response.data
           comp.totalEvents = response.headers['x-total-count']
@@ -75,9 +73,6 @@ export default {
         .catch(() => {
           console.log('error')
           comp.$router.push({ name: 'NetworkError' })
-        })
-        .finally(() => {
-          NProgress.done()
         })
     },
   },
