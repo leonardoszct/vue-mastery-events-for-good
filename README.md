@@ -1,6 +1,6 @@
 # Vue 3 Events Project
 
-This is a tutorial project from Vue Mastery beginner path [real world vue 3](https://www.vuemastery.com/courses/real-world-vue3) and [Touring Vue Router](https://www.vuemastery.com/courses/touring-vue-router) courses. 
+This is a tutorial project from Vue Mastery beginner path [Real World Vue 3](https://www.vuemastery.com/courses/real-world-vue3) and [Touring Vue Router](https://www.vuemastery.com/courses/touring-vue-router) courses. 
 
 ## Project setup
 ```
