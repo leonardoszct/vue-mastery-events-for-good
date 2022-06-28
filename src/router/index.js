@@ -34,7 +34,7 @@ const routes = [
         name: 'EventEdit',
         component: EventEdit,
       },
-    ]
+    ],
   },
   {
     path: '/event/:afterEvent(.*)',
