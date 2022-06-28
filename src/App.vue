@@ -1,10 +1,24 @@
 <template>
-  <nav>
-    <router-link :to="{ name: 'EventList' }">Events</router-link> |
-    <router-link :to="{ name: 'About' }">About</router-link>
-  </nav>
-  <router-view></router-view>
+  <div id="app">
+    <FlashMessage />
+
+    <nav>
+      <router-link :to="{ name: 'EventList' }">Events</router-link> |
+      <router-link :to="{ name: 'About' }">About</router-link>
+    </nav>
+    <router-view></router-view>
+  </div>
 </template>
+
+<script>
+import FlashMessage from '@/components/FlashMessage.vue'
+
+export default {
+  components: {
+    FlashMessage,
+  },
+}
+</script>
 
 <style>
 #app {
