@@ -2,7 +2,7 @@
   <h1>Events For Good</h1>
 
   <div>
-    <div v-if="events?.length" class="events">
+    <div class="events">
       <EventCard v-for="event in events" :key="event.id" :event="event" />
 
       <div class="pagination">
@@ -25,9 +25,6 @@
         </router-link>
       </div>
     </div>
-    <div v-else>
-      <p v-if="!events?.length">No events yet :(</p>
-    </div>
   </div>
 </template>
 
@@ -35,7 +32,9 @@
 // @ is an alias to /src
 import EventCard from '@/components/EventCard.vue'
 import EventService from '@/services/EventService'
-import { watchEffect } from 'vue'
+import NProgress from 'nprogress'
+
+const PAGE_SIZE = 2
 
 export default {
   name: 'EventList',
@@ -47,28 +46,39 @@ export default {
     return {
       events: null,
       totalEvents: 0,
-      pageSize: 2,
     }
   },
-  created() {
-    watchEffect(() => {
-      this.event = null
-      EventService.getEvents(this.pageSize, this.page)
-        .then((response) => {
-          this.events = response.data ?? []
-          this.totalEvents = response.headers['x-total-count']
-        })
-        .catch(() => {
-          this.$router.push({
-            name: 'NetworkError',
-          })
-        })
+  beforeRouteEnter(routeTo, routeFrom, next) {
+    next((vm) => {
+      vm.getEvents(routeTo, vm)
     })
+  },
+  beforeRouteUpdate(routeTo) {
+    this.getEvents(routeTo, this)
   },
   computed: {
     hasNextPage() {
-      var totalPages = Math.ceil(this.totalEvents / this.pageSize)
+      var totalPages = Math.ceil(this.totalEvents / PAGE_SIZE)
       return this.page < totalPages
+    },
+  },
+  methods: {
+    getEvents(routeTo, comp) {
+      NProgress.start()
+      const page = parseInt(routeTo.query.page) || 1
+
+      EventService.getEvents(PAGE_SIZE, page)
+        .then((response) => {
+          comp.events = response.data
+          comp.totalEvents = response.headers['x-total-count']
+        })
+        .catch(() => {
+          console.log('error')
+          comp.$router.push({ name: 'NetworkError' })
+        })
+        .finally(() => {
+          NProgress.done()
+        })
     },
   },
 }
