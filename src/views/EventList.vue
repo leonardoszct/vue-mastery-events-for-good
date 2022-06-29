@@ -1,13 +1,15 @@
 <template>
+  <h5>{{ user.userInfo.name }} schedule</h5>
   <h1>Events for Good</h1>
   <div class="events">
-    <EventCard v-for="event in events" :key="event.id" :event="event" />
-    <p v-if="!events?.length">No events yet :(</p>
+    <EventCard v-for="event in eventList" :key="event.id" :event="event" />
+    <p v-if="!eventList?.length">No events yet :(</p>
   </div>
 </template>
 
 <script>
 import EventCard from '@/components/EventCard.vue'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'EventList',
@@ -15,7 +17,7 @@ export default {
     EventCard,
   },
   created() {
-    this.$store.dispatch('fetchEvents').catch((error) => {
+    this.fetchEvents().catch((error) => {
       this.$router.push({
         name: 'ErrorDisplay',
         params: { error: error },
@@ -23,9 +25,13 @@ export default {
     })
   },
   computed: {
-    events() {
-      return this.$store.state.events
+    ...mapState(['event', 'user']),
+    eventList() {
+      return this.event.events
     },
+  },
+  methods: {
+    ...mapActions('event', ['fetchEvents']),
   },
 }
 </script>

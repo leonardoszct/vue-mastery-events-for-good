@@ -10,7 +10,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 p {
   padding: 12px;
   border-radius: 8px;

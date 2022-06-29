@@ -1,17 +1,22 @@
 <template>
   <div v-if="event">
-    <h1>{{ event.title }}</h1>
-    <p>{{ event.time }} on {{ event.date }} @ {{ event.location }}</p>
-    <p>{{ event.description }}</p>
+    <h1>{{ currentEvent.title }}</h1>
+    <p>
+      {{ currentEvent.time }} on {{ currentEvent.date }} @
+      {{ currentEvent.location }}
+    </p>
+    <p>{{ currentEvent.description }}</p>
   </div>
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
+
 export default {
   name: 'EventDetails',
   props: ['id'],
   created() {
-    this.$store.dispatch('fetchEvent', this.id).catch((error) => {
+    this.fetchEvent(this.id).catch((error) => {
       this.$router.push({
         name: 'ErrorDisplay',
         params: { error: error },
@@ -19,9 +24,13 @@ export default {
     })
   },
   computed: {
-    event() {
-      return this.$store.state.event
+    ...mapState(['event']),
+    currentEvent() {
+      return this.event.currentEvent
     },
+  },
+  methods: {
+    ...mapActions('event', ['fetchEvent']),
   },
 }
 </script>
