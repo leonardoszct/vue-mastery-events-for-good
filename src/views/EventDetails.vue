@@ -14,7 +14,7 @@ export default {
   props: ['id'],
   data() {
     return {
-      event: null
+      event: null,
     }
   },
   created() {
@@ -25,6 +25,6 @@ export default {
       .catch(() => {
         alert('Error getting event')
       })
-  }
+  },
 }
 </script>
