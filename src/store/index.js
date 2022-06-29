@@ -21,21 +21,21 @@ export default createStore({
   },
   actions: {
     createEvent({ commit }, event) {
-      EventService.postEvent(event)
+      return EventService.postEvent(event)
         .then(() => {
           commit('ADD_EVENT', event)
         })
-        .catch(() => {
-          alert('Error creating events')
+        .catch((error) => {
+          throw error
         })
     },
     fetchEvents({ commit }) {
-      EventService.getEvents()
+      return EventService.getEvents()
         .then((response) => {
           commit('SET_EVENTS', response.data)
         })
-        .catch(() => {
-          alert('Error getting events')
+        .catch((error) => {
+          throw error
         })
     },
     fetchEvent({ commit, state }, id) {
@@ -43,12 +43,12 @@ export default createStore({
       if (existingEvent) {
         commit('SET_EVENT', existingEvent)
       } else {
-        EventService.getEvent(id)
+        return EventService.getEvent(id)
           .then((response) => {
             commit('SET_EVENT', response.data)
           })
-          .catch(() => {
-            alert('Error getting event')
+          .catch((error) => {
+            throw error
           })
       }
     },

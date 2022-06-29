@@ -39,6 +39,16 @@
       "date": "12/12/2022",
       "time": "12:00",
       "organizer": "Leo C."
+    },
+    {
+      "id": "75919002-9733-46ae-ae5a-7c275d8382aa",
+      "category": "education",
+      "title": "TI class for trans people",
+      "description": "TI class for trans folks",
+      "location": "Trans nation",
+      "date": "25/05/2022",
+      "time": "10:01",
+      "organizer": "Leo C."
     }
   ]
 }
