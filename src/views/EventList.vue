@@ -1,6 +1,5 @@
 <template>
-  <h1>Events For Good</h1>
-
+  <h1>Events for Good</h1>
   <div class="events">
     <EventCard v-for="event in events" :key="event.id" :event="event" />
     <p v-if="!events?.length">No events yet :(</p>
@@ -8,28 +7,20 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import EventCard from '@/components/EventCard.vue'
-import EventService from '@/services/EventService'
 
 export default {
   name: 'EventList',
   components: {
     EventCard,
   },
-  data() {
-    return {
-      events: null,
-    }
-  },
   created() {
-    EventService.getEvents()
-      .then((response) => {
-        this.events = response.data ?? []
-      })
-      .catch(() => {
-        alert('Error getting event')
-      })
+    this.$store.dispatch('fetchEvents')
+  },
+  computed: {
+    events() {
+      return this.$store.state.events
+    },
   },
 }
 </script>
