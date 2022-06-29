@@ -29,6 +29,26 @@
       "date": "July 22, 2022",
       "time": "11:00",
       "organizer": "Carey Wales"
+    },
+    {
+      "id": "7ead8473-97ad-4019-b48f-04ac83f399e8",
+      "category": "food",
+      "title": "Baking Pupcakes",
+      "description": "bakery class",
+      "location": "Pup town",
+      "date": "12/12/2022",
+      "time": "12:00",
+      "organizer": "Leo C."
+    },
+    {
+      "id": "81398a0b-e6ec-4e1d-8fcb-a7176e7b1e0f",
+      "category": "animal welfare",
+      "title": "teste",
+      "description": "teste",
+      "location": "teste",
+      "date": "teste",
+      "time": "teste",
+      "organizer": "Leo C."
     }
   ]
 }
