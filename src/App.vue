@@ -3,7 +3,7 @@
     <router-link :to="{ name: 'EventList' }">Events</router-link> |
     <router-link :to="{ name: 'About' }">About</router-link> |
     <router-link :to="{ name: 'EventCreate' }">Create Event</router-link>
-    <p>Logged as {{ userStore.user }}</p>
+    <p>Logged in as {{ userStore.firstName }}</p>
   </nav>
   <router-view></router-view>
 </template>

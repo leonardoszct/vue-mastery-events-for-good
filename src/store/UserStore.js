@@ -6,4 +6,9 @@ export const useUserStore = defineStore('UserStore', {
       user: 'Leo C.',
     }
   },
+  getters: {
+    firstName() {
+      return this.user.split(' ')[0]
+    },
+  },
 })

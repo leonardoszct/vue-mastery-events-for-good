@@ -1,5 +1,5 @@
 <template>
-  <h1>Events for Good</h1>
+  <h1>{{ numberOfEvents }} Events for Good</h1>
   <div class="events">
     <EventCard v-for="event in eventList" :key="event.id" :event="event" />
     <p v-if="!eventList?.length">No events yet :(</p>
@@ -8,7 +8,7 @@
 
 <script>
 import EventCard from '@/components/EventCard.vue'
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'EventList',
@@ -25,6 +25,7 @@ export default {
   },
   computed: {
     ...mapState(['event', 'user']),
+    ...mapGetters('event', ['numberOfEvents']),
     eventList() {
       return this.event.events
     },
