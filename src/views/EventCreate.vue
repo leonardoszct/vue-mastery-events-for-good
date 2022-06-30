@@ -45,12 +45,18 @@
 </template>
 
 <script>
+import { useEventStore } from '@/store/EventStore'
+import { useUserStore } from '@/store/UserStore'
 import { v4 as uuidv4 } from 'uuid'
-import { mapState, mapActions } from 'vuex'
 
 export default {
-  data() {
+  setup() {
+    const eventStore = useEventStore()
+    const userStore = useUserStore()
+
     return {
+      eventStore,
+      userStore,
       categories: [
         'sustainability',
         'nature',
@@ -72,18 +78,15 @@ export default {
       },
     }
   },
-  computed: {
-    ...mapState(['user']),
-  },
   methods: {
-    ...mapActions('event', ['createEvent']),
     onSubmit() {
       const event = {
         ...this.event,
         id: uuidv4(),
-        organizer: this.user.userInfo.name,
+        organizer: this.userStore.name,
       }
-      this.createEvent(event)
+      this.eventStore
+        .createEvent(event)
         .then(() => {
           this.$router.push({
             name: 'EventDetails',

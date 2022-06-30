@@ -1,5 +1,5 @@
 <template>
-  <div v-if="event">
+  <div v-if="currentEvent">
     <h1>{{ currentEvent.title }}</h1>
     <p>
       {{ currentEvent.time }} on {{ currentEvent.date }} @
@@ -10,13 +10,20 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { useEventStore } from '@/store/EventStore'
 
 export default {
   name: 'EventDetails',
   props: ['id'],
+  setup() {
+    const eventStore = useEventStore()
+
+    return {
+      eventStore,
+    }
+  },
   created() {
-    this.fetchEvent(this.id).catch((error) => {
+    this.eventStore.fetchEvent(this.id).catch((error) => {
       this.$router.push({
         name: 'ErrorDisplay',
         params: { error: error },
@@ -24,13 +31,9 @@ export default {
     })
   },
   computed: {
-    ...mapState(['event']),
     currentEvent() {
-      return this.event.currentEvent
+      return this.eventStore.event
     },
-  },
-  methods: {
-    ...mapActions('event', ['fetchEvent']),
   },
 }
 </script>

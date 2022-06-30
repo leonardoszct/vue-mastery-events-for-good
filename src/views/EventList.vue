@@ -1,37 +1,38 @@
 <template>
-  <h1>{{ numberOfEvents }} Events for Good</h1>
+  <h1>{{ eventStore.numberOfEvents }} Events for Good</h1>
   <div class="events">
-    <EventCard v-for="event in eventList" :key="event.id" :event="event" />
-    <p v-if="!eventList?.length">No events yet :(</p>
+    <EventCard
+      v-for="event in eventStore.events"
+      :key="event.id"
+      :event="event"
+    />
+    <p v-if="!eventStore.numberOfEvents">No events yet :(</p>
   </div>
 </template>
 
 <script>
 import EventCard from '@/components/EventCard.vue'
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { useEventStore } from '@/store/EventStore'
 
 export default {
   name: 'EventList',
   components: {
     EventCard,
   },
+  setup() {
+    const eventStore = useEventStore()
+
+    return {
+      eventStore,
+    }
+  },
   created() {
-    this.fetchEvents().catch((error) => {
+    this.eventStore.fetchEvents().catch((error) => {
       this.$router.push({
         name: 'ErrorDisplay',
         params: { error: error },
       })
     })
-  },
-  computed: {
-    ...mapState(['event', 'user']),
-    ...mapGetters('event', ['numberOfEvents']),
-    eventList() {
-      return this.event.events
-    },
-  },
-  methods: {
-    ...mapActions('event', ['fetchEvents']),
   },
 }
 </script>
