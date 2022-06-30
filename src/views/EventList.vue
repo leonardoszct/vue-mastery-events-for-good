@@ -1,5 +1,4 @@
 <template>
-  <h5>{{ user.userInfo.name }} schedule</h5>
   <h1>Events for Good</h1>
   <div class="events">
     <EventCard v-for="event in eventList" :key="event.id" :event="event" />
